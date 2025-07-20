@@ -1,0 +1,46 @@
+{% extends "include/base.html" %}
+{% load static %}
+ {% block Header %}
+  Search
+ {% endblock %}
+{% block body %}
+
+
+        <!-- Popular Movie Section Start -->
+        <section class="popular-movie-section-2 fux section-padding section-bg-2">
+            <div class="container">
+                <div class="section-title text-center wow fadeInUp" data-wow-delay=".3s">
+                    <h2><img src="{% static 'assets/img/lightning.png' %}" alt="img">Search Result For "{{ request.GET.q }}"</h2>
+                </div>
+                <div class="trending-wrapper-2 style-2">
+                    <div class="row">
+                        {% for movie in movies %}
+                        <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                            <div class="trending-box-items">
+                                <div class="trending-image">
+                                    <img src="{{movie.background_image.url}}" alt="img">
+                                    <div class="icon">
+                                        <i class="fa-solid fa-crown"></i>
+                                    </div>
+                                </div>
+                                <div class="trending-content">
+                                    <div class="content">
+                                        <h3><a href="{% url 'movie_detail' slug=movie.slug %}">{{ movie.name }}</a></h3>
+                                        <p>Action, war, romantic</p>
+                                    </div>
+                                    <div class="star">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star color-2"></i>
+                                        <i class="fa-solid fa-star color-2"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}

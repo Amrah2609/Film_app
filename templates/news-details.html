@@ -1,0 +1,134 @@
+{% extends "include/base.html" %}
+{% load static %}
+
+{% block Header %}
+    Blog Details
+{% endblock %}
+
+{% block body %}
+<!-- News List Section Start -->
+<section class="news-standard section-padding pb-0">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-12 col-lg-8">
+                <div class="news-standard-wrapper">
+                    <div class="news-standard-items">
+                        <div class="news-thumb">
+                            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                        </div>
+                        <div class="news-content">
+                            <ul class="date-list">
+                                <li><b>Written by:</b> {{ post.author }}</li>
+                                <li class="color-2">{{ post.published_at|date:"d/m/Y" }}</li>
+                            </ul>
+                            <h3>
+                                <a href="{% url 'blog_details' post.slug %}">{{ post.title }}</a>
+                            </h3>
+                            <p>{{ post.excerpt }}</p>
+                            <div class="news-button">
+                                <a href="{% url 'blog_details' post.slug %}" class="link-btn mt-4">
+                                    <i class="fa-solid fa-arrow-right-long"></i>
+                                </a>
+                                <div class="social-profile">
+                                    <ul>
+                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination (optional) -->
+                    <div class="page-nav-wrap pt-5 text-center wow fadeInUp" data-wow-delay=".3s">
+                        {% if posts.has_other_pages %}
+                        <ul>
+                            {% if posts.has_previous %}
+                                <li><a class="page-numbers icon" href="?page={{ posts.previous_page_number }}"><i class="fa-solid fa-arrow-left-long"></i></a></li>
+                            {% endif %}
+
+                            {% for page_num in posts.paginator.page_range %}
+                                <li>
+                                    <a class="page-numbers {% if page_num == posts.number %}active{% endif %}" href="?page={{ page_num }}">
+                                        {{ page_num }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+
+                            {% if posts.has_next %}
+                                <li><a class="page-numbers icon" href="?page={{ posts.next_page_number }}"><i class="fa-solid fa-arrow-right-long"></i></a></li>
+                            {% endif %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-12 col-lg-4">
+                <div class="main-sidebar">
+
+                    <!-- Search -->
+                    <div class="single-sidebar-widget">
+                        <div class="wid-title"><h3>Search</h3></div>
+                        <div class="search-widget">
+                            <form method="get" action="{% url 'blog_page' %}">
+                                <input type="text" name="q" placeholder="Search here" value="{{ request.GET.q }}">
+                                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+                                        <!-- Recent Posts -->
+                    <div class="single-sidebar-widget">
+                        <div class="wid-title"><h3>Recent Posts</h3></div>
+                        <div class="recent-post-area">
+                            {% for recent in recent_posts %}
+                            <div class="recent-items">
+                                <div class="recent-thumb">
+                                    <img src="{{ recent.image.url }}" alt="{{ recent.name }}" style="width: 100%">
+                                </div>
+                                <div class="recent-content">
+                                    <ul>
+                                        <li>
+                                            <i class="fa-solid fa-calendar-days"></i>
+                                            {{ recent.published_at|date:"d/m/Y" }}
+                                        </li>
+                                    </ul>
+                                    <h6>
+                                        <a href="{% url 'blog_details' recent.slug %}">
+                                            {{ recent.title|truncatewords:6 }}
+                                        </a>
+                                    </h6>
+                                </div>
+                            </div>
+                            {% empty %}
+                                <p>No recent posts.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="single-sidebar-widget">
+                        <div class="wid-title"><h3>Tags</h3></div>
+                        <div class="news-widget-categories">
+                            <div class="tagcloud">
+                                {% for tag in tags %}
+                                    <a href="{% url 'blog_page' %}?tag={{ tag.slug }}">{{ tag.name }}</a>
+                                {% empty %}
+                                    <span>No tags available.</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- end .main-sidebar -->
+            </div> <!-- end sidebar column -->
+        </div> <!-- end row -->
+    </div> <!-- end container -->
+</section>
+{% endblock %}
+

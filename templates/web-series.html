@@ -1,0 +1,176 @@
+{% extends "include/base.html" %}
+{% load static %}
+ {% block Header %}
+     Web series
+ {% endblock %}
+{% block body %}
+       <section class="web-series-section section-padding pt-0 fix">
+    <div class="container">
+        <div class="section-title-area">
+            <div class="section-title style-2">
+                <h2>Web Series</h2>
+            </div>
+            <div class="array-button-2">
+                <button class="cta-prev"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="cta-next"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+        <div class="web-series-wrapper">
+            <div class="swiper web-series-slider">
+                {% include 'include/web_series_list.html' %}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+        <!-- Cta Movie Section Start -->
+        <section class="cta-movie-section-2 fix bg-cover" style="background-image: url({{web_background.background_image.url}});">
+            <div class="cta-movie-wrapper style-2">
+                <div class="container">
+                    <div class="row g-4 justify-content-between">
+                        <div class="col-lg-7">
+                            <div class="cta-content">
+                                <h2>
+                                    {{ web_background.name}}
+                                </h2>
+                                <h3>{{ web_background.year }} | {{ web_background.get_genres }}</h3>
+                                <ul>
+                                   <li>{{ web_background.year }}  . {{ web_background.duration}}    . {{ web_background.get_genres}}</li>
+                                </ul>
+                                <p>
+                                    {{ web_background.description }}
+                                </p>
+                                <div class="cta-button">
+                                    <span class="button-text">
+                                        <a href="{{ web_background.video_link}}" class="video-btn video-popup">
+                                            <i class="fa-solid fa-play"></i>
+                                        </a>
+                                        <span class="ms-4 d-line">Watch The Trailer</span>
+                                    </span>
+                                    <a href="{% url 'movie_detail' slug=web_background.slug%}" class="theme-btn">+ Add to list</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="cta-movie-slider-items">
+                                <h4>TOP RATED SCEENS</h4>
+                                <div class="swiper cta-movie-slider">
+                                    <div class="swiper-wrapper">
+                                        {% for movie in rated_scenes %}
+                                        <div class="swiper-slide">
+                                            <div class="movie-thumb">
+                                                <img src="{{ movie.background_image.url }}" alt="img">
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="swiper-dot">
+                                    <div class="dot"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Web Series Section Start -->
+        <section class="web-series-section section-padding">
+            <div class="container">
+                <div class="section-title-area">
+                    <div class="section-title style-2">
+                        <h2>most watch web series</h2>
+                    </div>
+                    <div class="array-button-2">
+                        <button class="cta-prev"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="cta-next"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="web-series-wrapper">
+                    <div class="swiper web-series-slider">
+                        <div class="swiper-wrapper">
+                            {% for movie in most_watch_series %}
+                            <div class="swiper-slide">
+                                <div class="web-series-box-items">
+                                    <div class="web-series-thumb">
+                                        <img src="{{ movie.background_image.url}}" alt="img">
+                                    </div>
+                                    <div class="web-series-content">
+                                        <h3><a href="{% url 'movie_detail'  slug=movie.slug %}">{{ movie.name }}</a></h3>
+                                        <p>{{ movie.year }} {{ movie.get_genres}}</p>
+                                        <div class="star">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star color-2"></i>
+                                            <i class="fa-solid fa-star color-2"></i>
+                                        </div>
+                                        <span class="button-text">
+                                            <a href="{{ movie.video_link}}" class="video-popup video-text">
+                                                Watch now
+                                            </a>
+                                            <a href="{{ movie.video_link}}" class="video-btn ripple  video-popup">
+                                                <i class="fa-solid fa-play"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trending Section Start -->
+        <section class="trending-section-2 pt-0 fix">
+            <div class="container">
+                <div class="section-title-area">
+                    <div class="section-title style-2">
+                        <h2>top - rated web series</h2>
+                    </div>
+                    <div class="array-button-2">
+                        <button class="array-prev"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="array-next"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="trending-wrapper-2">
+                    <div class="swiper trending-slider-2">
+                        <div class="swiper-wrapper">
+                            {% for movie in rated_series %}
+                            <div class="swiper-slide">
+                                <div class="trending-box-items">
+                                    <div class="trending-image">
+                                        <img src="{{ movie.background_image.url}}" alt="img">
+                                        <div class="icon">
+                                            <i class="fa-solid fa-crown"></i>
+                                        </div>
+                                        <a href="{{ movie.video_link}}" class="video-btn ripple video-popup">
+                                            <i class="fa-solid fa-play"></i>
+                                        </a>
+                                    </div>
+                                    <div class="trending-content">
+                                        <div class="content">
+                                            <h3><a href="{% url 'movie_detail' slug=movie.slug %}">{{ movie.name }}</a></h3>
+                                            <p>{{ movie.get_genres }}</p>
+                                        </div>
+                                        <div class="star">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star color-2"></i>
+                                            <i class="fa-solid fa-star color-2"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}

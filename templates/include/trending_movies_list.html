@@ -1,0 +1,30 @@
+<div class="swiper-wrapper">
+    {% for movie in trend_movie %}
+    <div class="swiper-slide">
+        <div class="trending-box-items">
+            <div class="trending-image">
+                <img src="{{ movie.background_image.url }}" alt="img">
+                <div class="icon">
+                    <i class="fa-solid fa-crown"></i>
+                </div>
+                <a href="{{ movie.video_link }}" class="video-btn ripple video-popup">
+                    <i class="fa-solid fa-play"></i>
+                </a>
+            </div>
+            <div class="trending-content">
+                <div class="content">
+                    <h3><a href="{% url 'movie_detail' slug=movie.slug %}">{{ movie.name }}</a></h3>
+                    <p>{{ movie.get_genres }}</p>
+                </div>
+                <div class="star">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star color-2"></i>
+                    <i class="fa-solid fa-star color-2"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

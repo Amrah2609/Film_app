@@ -1,0 +1,163 @@
+{% extends "include/base.html" %}
+{% load static %}
+ {% block Header %}
+  Movies
+ {% endblock %}
+{% block body %}
+
+    <section class="trending-section-2 section-padding fix">
+    <div class="container">
+        <div class="section-title-area">
+            <div class="section-title style-2">
+                <h2>Trending Movies</h2>
+            </div>
+            <div class="array-button-2">
+                <button class="cta-prev"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="cta-next"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+        <div class="trending-wrapper-2">
+            <div class="swiper trending-slider">
+                {% include 'include/trending_movies_list.html' %}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+        <!-- Trending Section Start -->
+        <section class="trending-section-2 section-padding pt-0 fix">
+            <div class="container">
+                <div class="section-title-area">
+                    <div class="section-title style-2">
+                        <h2>FEATURED movies</h2>
+                    </div>
+                    <div class="array-button-2">
+                        <button class="array-prev"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="array-next"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="trending-wrapper-2">
+                    <div class="swiper trending-slider-2">
+                        <div class="swiper-wrapper">
+                            {% for movie in featured_movie %}
+                            <div class="swiper-slide">
+                                <div class="trending-box-items">
+                                    <div class="trending-image">
+                                        <img src="{{ movie.background_image.url }}" alt="img">
+                                        <div class="icon">
+                                            <i class="fa-solid fa-crown"></i>
+                                        </div>
+                                        <a href="{{ movie.video_link}}" class="video-btn ripple video-popup">
+                                            <i class="fa-solid fa-play"></i>
+                                        </a>
+                                    </div>
+                                    <div class="trending-content">
+                                        <div class="content">
+                                            <h3><a href="{% url 'movie_detail' slug=movie.slug %}">{{ movie.name }}</a></h3>
+                                            <p>{{ movie.get_genres}}</p>
+                                        </div>
+                                        <div class="star">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star color-2"></i>
+                                            <i class="fa-solid fa-star color-2"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trending Section Start -->
+        <section class="trending-section-2 section-padding fix pt-0">
+            <div class="container">
+                <div class="section-title-area">
+                    <div class="section-title style-2">
+                        <h2>MOVIES TRAILERS</h2>
+                    </div>
+                    <div class="array-button-2">
+                        <button class="cta-prev"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="cta-next"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="trending-wrapper-2">
+                    <div class="swiper trending-slider">
+                        <div class="swiper-wrapper">
+                            {% for movie in trailer_movie %}
+                            <div class="swiper-slide">
+                                <div class="trending-box-items">
+                                    <div class="trending-image">
+                                        <img src="{{ movie.background_image.url}}" alt="img">
+                                        <div class="icon">
+                                            <i class="fa-solid fa-crown"></i>
+                                        </div>
+                                        <a href="{{ movie.video_link}}" class="video-btn ripple video-popup">
+                                            <i class="fa-solid fa-play"></i>
+                                        </a>
+                                    </div>
+                                    <div class="trending-content">
+                                        <div class="content">
+                                            <h3><a href="{% url 'movie_detail' slug=movie.slug %}">{{ movie.name }}</a></h3>
+                                            <p>{{ movie.get_genres}}</p>
+                                        </div>
+                                        <div class="star">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star color-2"></i>
+                                            <i class="fa-solid fa-star color-2"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Movie Section Start -->
+        <section class="popular-movie-section-2 fux section-padding section-bg-2">
+            <div class="container">
+                <div class="section-title text-center wow fadeInUp" data-wow-delay=".3s">
+                    <h2><img src="{% static 'assets/img/lightning.png' %}" alt="img">POPULAR MOVIES</h2>
+                </div>
+                <div class="trending-wrapper-2 style-2">
+                    <div class="row">
+                        {% for movie in popular_movie %}
+                        <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                            <div class="trending-box-items">
+                                <div class="trending-image">
+                                    <img src="{{movie.background_image.url}}" alt="img">
+                                    <div class="icon">
+                                        <i class="fa-solid fa-crown"></i>
+                                    </div>
+                                </div>
+                                <div class="trending-content">
+                                    <div class="content">
+                                        <h3><a href="{% url 'movie_detail' slug=movie.slug %}">{{ movie.name }}</a></h3>
+                                        <p>{{ movie.get_genres}}</p>
+                                    </div>
+                                    <div class="star">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star color-2"></i>
+                                        <i class="fa-solid fa-star color-2"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}

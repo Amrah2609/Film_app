@@ -1,0 +1,19 @@
+{% extends "include/base.html" %}
+{% load static %}
+ {% block Header %}
+     Error 404
+ {% endblock %}
+{% block body %}
+        <!-- 404 Error Section Start -->
+        <section class="error-section section-padding fix pb-0">
+            <div class="container">
+                <div class="error-content text-center">
+                    <h2 class="wow fadeInUp" data-wow-delay=".3s">4<span>0</span>4</h2>
+                    <h3 class="wow fadeInUp" data-wow-delay=".5s">we’re sorry page not found</h3>
+                    <a href="{% url 'index' %}" class="theme-btn style-line-height mt-5 wow fadeInUp" data-wow-delay=".7s">
+                    <span class="button-text">Back To Home</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+{% endblock %}
