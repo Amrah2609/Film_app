@@ -166,15 +166,21 @@ class BlogPost(models.Model):
         return self.title
 
 
-class SocialMedia(models.Model):
-    PLATFORM_CHOICES = [
-        ('facebook', 'Facebook'),
-    ('twitter', 'Twitter'),
-    ('instagram', 'Instagram'),
-    ('linkedin', 'LinkedIn'),]
 
-    platform = models.CharField(max_length=20, choices=PLATFORM_CHOICES)
-    url = models.URLField(max_length=500, blank=True, null=True)
+class SocialMedia(models.Model):
+    name = models.CharField(max_length=50, default="Facebook")
+    url = models.URLField()
+    icon_class = models.CharField(max_length=100, default="fab fa-facebook-f")
+
 
     def __str__(self):
-        return self.platform.capitalize()
+        return self.name
+
+class ContactInfo(models.Model):
+    address = models.CharField(max_length=255)
+    email = models.EmailField()
+    working_hours = models.CharField(max_length=100)
+    phone = models.CharField(max_length=20)
+
+    def __str__(self):
+        return "Contact Info"

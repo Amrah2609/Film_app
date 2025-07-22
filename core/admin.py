@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import TeamPage, Movie, Video, Genre, Contact, ContactSettings, BlogPost,  Tag, SocialMedia
+from core.models import TeamPage, Movie, Video, Genre, Contact, ContactSettings, BlogPost,  Tag, SocialMedia, ContactInfo
 
 
 
@@ -77,8 +77,9 @@ class TagAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 
-class SocialMediaAdmin(admin.ModelAdmin):
-    list_display = ('platform', 'url')
-    search_fields = ('platform', 'url')
 
-admin.site.register(SocialMedia, SocialMediaAdmin)
+@admin.register(SocialMedia)
+class SocialMediaAdmin(admin.ModelAdmin):
+    list_display = ("name", "url", "icon_class")
+
+admin.site.register(ContactInfo)

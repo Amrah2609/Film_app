@@ -3,11 +3,20 @@ from itertools import count
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from core.forms import ContactForm
-from core.models import TeamPage, Movie, Video, ContactSettings, Contact, BlogPost, Tag, SocialMedia
+from core.models import TeamPage, Movie, Video, ContactSettings, Contact, BlogPost, Tag, SocialMedia, ContactInfo
 from django.db.models import Count
 
 # Create your views here.
 
+def base_context():
+    contact_info = ContactInfo.objects.first()
+    return {
+    "social_media": SocialMedia.objects.all(),
+    "offcanvas_description": "Nullam dignissim, ante scelerisque the is euismod fermentum odio sem semper the is erat, a feugiat leo urna eget eros. Duis Aenean a imperdiet risus.",    "address": contact_info.address if contact_info else "",
+    "email": contact_info.email if contact_info else "",
+    "phone": contact_info.phone if contact_info else "",
+    "working_hours": contact_info.working_hours if contact_info else "",
+    }
 
 def index(request):
     context = {
@@ -20,12 +29,16 @@ def index(request):
     "series_movie": Movie.objects.filter(is_series=True),
     "top_rated_movie": Movie.objects.filter(is_top_rated=True),
     "film_rated_movie": Movie.objects.filter(is_film_rated_movie=True),
-    "social_media": SocialMedia.objects.all(),}
+    **base_context(),
+    }
+
     return render(request, "index.html", context)
 
 
 def team(request):
-    content = {"team": TeamPage.objects.all()}
+    content = {"team": TeamPage.objects.all(),
+    **base_context()
+               }
     return render(request, "team.html", content)
 
 
@@ -34,13 +47,15 @@ def movie(request):
     "trend_movie": Movie.objects.filter(is_trend=True),
     "featured_movie": Movie.objects.filter(is_featured=True),
     "trailer_movie": Movie.objects.filter(is_trailer=True),
-    "popular_movie": Movie.objects.filter(is_popular=True),}
+    "popular_movie": Movie.objects.filter(is_popular=True),
+    **base_context()
+    }
     return render(request, "movie.html", context)
 
 
 def movie_detail(request, slug):
     movie = get_object_or_404(Movie, slug=slug)
-    return render(request, "movie-details.html", {"movie": movie})
+    return render(request, "movie-details.html", {"movie": movie, **base_context()} )
 
 
 def web_series(request):
@@ -48,7 +63,9 @@ def web_series(request):
                "web_background": Movie.objects.filter(is_web_background=True).first(),
                "rated_scenes": Movie.objects.filter(is_rated_scenes=True),
                "most_watch_series": Movie.objects.filter(is_most_watch_series=True),
-               "rated_series": Movie.objects.filter(is_rated_series=True),}
+               "rated_series": Movie.objects.filter(is_rated_series=True),
+               **base_context()
+               }
     return render(request, "web-series.html", context)
 
 
@@ -72,6 +89,7 @@ def contact_page(request):
         "contact_form": form,
         "contact_movie": contact_movie,
         "settings": settings,
+        **base_context()
     })
 
 
@@ -93,6 +111,7 @@ def blog_page(request):
         "posts": posts,
         "recent_posts": recent_posts,
         "tags": tags,
+        **base_context()
     })
 
 
@@ -104,7 +123,8 @@ def blog_details(request, slug):
     return render(request, "news-details.html", {
         "post": post,
         "recent_posts": recent_posts,
-        "tags": tags
+        "tags": tags,
+        **base_context()
     })
 
 
@@ -115,4 +135,4 @@ def error_page(request):
 def search(request):
     query = request.GET.get("q")
     movies = Movie.objects.filter(name__icontains=query)
-    return render(request, "search.html", {"movies": movies})
+    return render(request, "search.html", {"movies": movies, **base_context()})
