@@ -345,7 +345,7 @@
                                             <i class="fa-solid fa-play"></i>
                                         </a>
                                         <div class="movie-content">
-                                            <h3><a href="movie-details.html">{{ movie.name}}</a></h3>
+                                            <h3><a href="{% url 'movie_detail' slug=movie.slug %}">{{ movie.name}}</a></h3>
                                             <ul class="post-time">
                                                 <li>
                                                     <i class="fa-regular fa-clock"></i>
@@ -357,12 +357,7 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="social-icon d-grid align-items-center">
-                                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                            <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                                            <a href="#"><i class="fab fa-instagram"></i></a>
-                                        </div>
+
                                     </div>
                                 </div>
                         </div>

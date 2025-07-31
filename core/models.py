@@ -4,7 +4,6 @@ from django.utils.html import mark_safe
 from django.utils.timezone import now
 from packaging.tags import Tag
 
-
 # Create your models here.
 
 
@@ -16,6 +15,9 @@ class Movie(models.Model):
     duration = models.DurationField(null=True, blank=True)
     slug = models.SlugField(max_length=250, null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    imdb_rating = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    streamvibe_rating = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
 
     is_background = models.BooleanField(default=False)
     is_carousel = models.BooleanField(default=False)
